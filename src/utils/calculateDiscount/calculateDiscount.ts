@@ -1,4 +1,4 @@
-import { DiscountType } from "../types";
+import { DiscountType } from "../../types";
 
 const calculateDiscount = (discount: DiscountType, items) => {
   const day = new Date().getDay();
@@ -18,10 +18,10 @@ const calculateDiscount = (discount: DiscountType, items) => {
     }
   }
 
-  let discountedValue  = 0;
+  let discountedValue = 0;
 
   if (discount.numberOfItemsToDiscount) {
-    let countRemainingToDiscount = discount.numberOfItemsToDiscount
+    let countRemainingToDiscount = discount.numberOfItemsToDiscount;
 
     items.forEach(({ product, quantity }) => {
       if (product.type !== discount.discountCategory) return;
@@ -32,8 +32,8 @@ const calculateDiscount = (discount: DiscountType, items) => {
         discountedValue += product.price * countRemainingToDiscount;
         countRemainingToDiscount = 0;
       } else {
-        discountedValue += product.price * quantity
-        countRemainingToDiscount -= quantity
+        discountedValue += product.price * quantity;
+        countRemainingToDiscount -= quantity;
       }
     });
   }
@@ -41,7 +41,7 @@ const calculateDiscount = (discount: DiscountType, items) => {
   return {
     uuid: discount.uuid,
     name: discount.name,
-    value: discountedValue,
+    value: discountedValue
   };
 };
 

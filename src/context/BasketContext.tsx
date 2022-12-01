@@ -98,7 +98,7 @@ export const useBasketProducts = (products: FoodsType) => {
   const totalPrice = items.reduce((sum, item) => sum + item.totalPrice, 0);
 
   // Calculate discount
-  const validOffers = offerData.map((discount) => calculateDiscount(discount, items)).filter(item => item);
+  const validOffers = offerData.map((discount) => calculateDiscount(discount, items)).filter((item) => item);
   const bestOffer = validOffers.reduce((best, offer) => {
     if (!best) {
       return offer;
@@ -108,7 +108,6 @@ export const useBasketProducts = (products: FoodsType) => {
       return offer;
     }
   }, undefined);
-
 
   return { items, quantity, totalPrice, discount: bestOffer };
 };
