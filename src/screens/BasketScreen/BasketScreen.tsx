@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Alert, Pressable } from "react-native";
 import { Text, View } from "../../components/Themed";
-import { useBasket, useBasketProducts } from "../../context/BasketContext";
+import { useBasketProducts } from "../../context/BasketContext";
 import menuData from "../../services/mockMenu";
 import { BasketItemType } from "../../types";
 
@@ -26,8 +26,6 @@ const BasketScreen = () => {
   const { items, quantity, totalPrice, discount } = useBasketProducts(menuData);
   const navigation = useNavigation();
 
-  console.log("DISCOUNT", discount)
-
   return (
     <View style={styles.container}>
       {items.map((item) => (
@@ -42,7 +40,12 @@ const BasketScreen = () => {
       {quantity > 0 ? (
         <>
           <View style={styles.container}>
-            <Text>Total: £{(totalPrice / 100).toFixed(2)}</Text>
+            {discount ? <Text>Savings: £{(discount.value / 100).toFixed(2)}</Text> : <Text>No discounts found</Text>}
+            {discount ? (
+              <Text>Total: £{((totalPrice - discount.value) / 100).toFixed(2)}</Text>
+            ) : (
+              <Text>Total: £{(totalPrice / 100).toFixed(2)}</Text>
+            )}
           </View>
           {quantity > 0 && (
             <View style={styles.container}>
