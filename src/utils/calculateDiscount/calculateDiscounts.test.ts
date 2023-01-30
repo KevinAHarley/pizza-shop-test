@@ -10,7 +10,19 @@ const discount = {
   numberOfItemsToDiscount: 2
 };
 
+const updatedDiscount = {
+  uuid: "d26bcbcb-dc6b-4118-a24d-1483313369c7",
+  name: "Three for One Tuesdays",
+  description: "Buy one Pizza, get two free!",
+  discountDay: new Date().getDay(),
+  discountCategory: "PIZZA",
+  discountMinRequired: 3,
+  numberOfItemsToDiscount: 4
+};
+
 const result = { uuid: "d26bcbcb-dc6b-4118-a24d-1483313369c7", name: "Three for One Tuesdays", value: 20 };
+
+const updatedResult = { uuid: "d26bcbcb-dc6b-4118-a24d-1483313369c7", name: "Three for One Tuesdays", value: 40 };
 
 describe("calculateDiscount", () => {
   it("should return false if discountDay is set and today is not that day", () => {
@@ -106,5 +118,20 @@ describe("calculateDiscount", () => {
     ];
 
     expect(calculateDiscount(discount, items)).toEqual(result);
+  });
+
+  it("updated discount returns correct price for more than 3 pizzas", () => {
+    const items = [
+      {
+        product: {
+          name: "Pizza",
+          type: "PIZZA",
+          price: 10
+        },
+        quantity: 6
+      }
+    ];
+
+    expect(calculateDiscount(updatedDiscount, items)).toEqual(updatedResult);
   });
 });
